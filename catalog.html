@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <script src="js/main.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/catalog.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к основному содержимому</a>
@@ -57,6 +59,46 @@
       подробные карточки.
     </p>
   </section>
+
+  <p class="cart-counter" aria-live="polite">В корзине: 0</p>
+
+<section class="catalog-controls" aria-label="Управление каталогом">
+  <div class="catalog-controls__group">
+    <label for="catalog-search">Поиск товара</label>
+    <input
+      id="catalog-search"
+      class="catalog-controls__input"
+      type="search"
+      placeholder="Введите название товара"
+      autocomplete="off"
+    >
+  </div>
+
+  <div class="catalog-controls__group">
+    <label for="category-filter">Категория</label>
+    <select id="category-filter" class="catalog-controls__select">
+      <option value="all">Все категории</option>
+      <option value="kitchen">Кухня</option>
+      <option value="home">Дом</option>
+      <option value="electronics">Электроника</option>
+    </select>
+  </div>
+
+  <div class="catalog-controls__group">
+    <label for="sort-select">Сортировка</label>
+    <select id="sort-select" class="catalog-controls__select">
+      <option value="default">По умолчанию</option>
+      <option value="price-asc">Сначала дешевле</option>
+      <option value="price-desc">Сначала дороже</option>
+      <option value="title-asc">По названию А-Я</option>
+    </select>
+  </div>
+</section>
+
+<p class="catalog-count" aria-live="polite"></p>
+<p class="catalog-empty" hidden>По выбранным условиям товары не найдены.</p>
+
+<div class="products-grid" data-products-container></div>
 
   <section class="catalog-layout">
     <aside class="catalog-filters">
