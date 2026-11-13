@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Магазин Жучков: главная страница с преимуществами и популярными товарами.">
+  <title>Магазин Жучков</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/modal.js" defer></script>
+  <script src="js/data.js" defer></script>
+<script src="js/main.js" defer></script>
+
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__logo" href="index.html">Магазин Жучков</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Меню</button>
+    <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+      <ul class="site-nav__list">
+        <li class="site-nav__item">
+          <a class="site-nav__link site-nav__link--active" href="index.html" aria-current="page">Главная</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="catalog.html">Каталог</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="product.html">Карточка товара</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="order.html">Оформление заказа</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="faq.html">FAQ</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="contacts.html">Контакты</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<section class="section js-check" aria-labelledby="js-check-title">
+  <h2 id="js-check-title">Проверка JavaScript</h2>
+  <p class="js-message">JavaScript пока не выполнился.</p>
+  <pre class="product-output"></pre>
+</section>
+
+<main id="main" class="main">
+    <section class="hero">
+  <div class="hero__content">
+    <h1 class="hero__title">Интернет-магазин насекомых</h1>
+    <p>
+      Это стартовая страница онлайн-магазина насекомых.
+      Здесь вы можете ознакомиться с информацией о нас
+      и о популярных товарах.
+    </p>
+    <a class="button button--primary" href="#popular">Перейти к товарам</a>
+  </div>
+    <picture>
+  <source media="(min-width: 1200px)" srcset="images/hero-desktop.webp">
+  <source media="(min-width: 768px)" srcset="images/hero-tablet.webp">
+  <img
+    src="images/hero-mobile.webp"
+    alt="Каталог насекомых"
+    width="640"
+    height="360"
+    class="hero__image"
+  >
+</picture>
+
+  </section>
+
+  <section class="section" id="advantages">
+    <h2>Преимущества нашего магазина</h2>
+    <ul class="advantages-list">
+      <li>огромное разнообразие видов;</li>
+      <li>отличное состояние животных;</li>
+      <li>быстрая доставка;</li>
+      <li>низкие цены.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="popular">
+  <h2>Популярные товары</h2>
+
+  <div class="products-grid">
+    <article class="product-card product-card--featured">
+      <span class="product-card__badge product-card__badge--new">Новинка</span>
+
+      <img
+        src="images/telifon.webp"
+        srcset="images/telifon-480.webp 480w,
+                images/telifon-640.webp 640w,
+                images/telifon-960.webp 960w"
+        sizes="(max-width: 639px) 100vw,
+               (max-width: 1023px) 50vw,
+               33vw"
+        alt="Телифон"
+        width="640"
+        height="480"
+        loading="lazy"
+        class="product-card__image"
+      >
+
+      <h3 class="product-card__title">Телифон</h3>
+      <p class="product-card__description">Относится к отряду тропических и субтропических паукообразных.</p>
+      <p class="product-card__price">Цена: 6000 руб.</p>
+      <button
+        class="button product-card__button"
+        type="button"
+        data-product="Телифон"
+      >
+        Заказать
+      </button>
+    </article>
+
+    <article class="product-card product-card--featured">
+      <span class="product-card__badge">Хит</span>
+      <img
+        class="product-card__image"
+        src="images/kozyavka.webp"
+        alt="Козявка"
+        width="300"
+        height="200"
+        loading="lazy"
+      >
+      
+      <h3 class="product-card__title">Козявка</h3>
+      <p class="product-card__description">Относится к подсемейству жуков из семейства листоедов.</p>
+      <p class="product-card__price">Цена: 2000 руб.</p>
+      <button
+        class="button product-card__button"
+        type="button"
+        data-product="Козявка"
+      >
+        Заказать
+      </button>
+    </article>
+
+    <article class="product-card product-card--featured">
+      <span class="product-card__badge">Скидка</span>
+      <img
+        class="product-card__image"
+        src="images/maika.webp"
+        alt="Майка"
+        width="300"
+        height="200"
+        loading="lazy"
+      >
+      <h3 class="product-card__title">Майка</h3>
+      <p class="product-card__description">Относится к роду нарывников из подсемейства Meloinae.</p>
+      <p class="product-card__price">Цена: 1000 руб.</p>
+      <button
+        class="button product-card__button"
+        type="button"
+        data-product="Майка"
+      >
+        Заказать
+      </button>
+    </article>
+  </div>
+</section>
+
+  <aside class="aside-info">
+    <h2>Информация для покупателей</h2>
+    <p>
+      Вы можете приобрести насекомых.
+      Можете оставить заявку на констультацию
+      у эксперта в области членистоногих.
+    </p>
+  </aside>
+
+<dialog class="order-dialog" id="order-dialog" aria-labelledby="order-dialog-title">
+  <h2 class="order-dialog__title" id="order-dialog-title">Оформление заявки</h2>
+
+  <form class="order-form" id="order-form" action="#" method="post" novalidate>
+    <input id="selected-product" name="selected-product" type="hidden">
+
+    <div class="order-form__field">
+      <label class="order-form__label" for="order-name">Имя</label>
+      <input
+        class="order-form__input"
+        id="order-name"
+        name="name"
+        type="text"
+        placeholder="Введите ваше имя"
+        minlength="2"
+        autocomplete="given-name"
+        required
+      >
+    </div>
+
+    <div class="order-form__field">
+      <label class="order-form__label" for="order-email">E-mail</label>
+      <input
+        class="order-form__input"
+        id="order-email"
+        name="email"
+        type="email"
+        placeholder="example@mail.ru"
+        autocomplete="email"
+        required
+      >
+    </div>
+
+    <div class="order-form__field">
+      <label class="order-form__label" for="order-phone">Телефон</label>
+      <input
+        class="order-form__input"
+        id="order-phone"
+        name="phone"
+        type="tel"
+        inputmode="tel"
+        placeholder="+7 (900) 000-00-00"
+        pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+        required
+      >
+      <small>Формат: +7 (900) 000-00-00</small>
+    </div>
+
+    <div class="order-form__field">
+      <label class="order-form__label" for="order-date">Дата связи</label>
+      <input
+        class="order-form__input"
+        id="order-date"
+        name="date"
+        type="date"
+      >
+    </div>
+
+    <div class="order-form__field">
+      <label class="order-form__label" for="order-topic">Тема заявки</label>
+      <select class="order-form__select" id="order-topic" name="topic" required>
+        <option value="">Выберите тему</option>
+        <option value="product">Заказ товара</option>
+        <option value="consultation">Консультация</option>
+        <option value="delivery">Доставка</option>
+      </select>
+    </div>
+
+    <div class="order-form__field">
+      <label class="order-form__label" for="order-comment">Комментарий</label>
+      <textarea
+        class="order-form__textarea"
+        id="order-comment"
+        name="comment"
+        rows="4"
+        placeholder="Укажите дополнительную информацию"
+      ></textarea>
+    </div>
+
+    <div class="order-form__field order-form__field--checkbox">
+      <label class="order-form__label">
+        <input
+          id="order-agreement"
+          name="agreement"
+          type="checkbox"
+          required
+        >
+        Я согласен на обработку данных
+      </label>
+    </div>
+
+    <div class="order-form__actions">
+      <button class="button button--primary" type="submit">Отправить заявку</button>
+      <button
+        class="button button--secondary"
+        type="button"
+        id="close-order-dialog"
+      >
+        Закрыть
+      </button>
+    </div>
+  </form>
+</dialog>
+
+<p class="success-message" id="success-message" hidden>Форма успешно отправлена!</p>
+
+</main>
+
+<footer class="site-footer" id="contacts">
+  <p>&copy; 2026 Учебный проект. Все права защищены.</p>
+  <p>Дисциплина: Фронтенд и бэкенд разработка</p>
+</footer>
+<a href="#" class="button-up" aria-label="Вернуться наверх">↑</a>
+</body>
+</html>
