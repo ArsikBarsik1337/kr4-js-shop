@@ -83,4 +83,4 @@ kr4-js-shop/
 
 ## Ссылка на репозиторий
 
-GitHub Pages: https://github.com/ArsikBarsik1337/kr4-js-shop
+GitHub Pages: https://arsikbarsik1337.github.io/kr4-js-shop
