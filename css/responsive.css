@@ -84,7 +84,11 @@ video {
   padding: 12px 16px;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 96em) {
+ .site-header__inner {
+   max-width: 104rem;
+   flex-wrap: nowarp;
+ } 
   .js .nav-toggle {
     display: none;
   }
