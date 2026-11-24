@@ -7,6 +7,15 @@
   <title>Телифон — Магазин Жучков</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/storage.js"></script>
+  <script src="js/boot.js"></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/favorites.js" defer></script>
+  <script src="js/product.js" defer></script>
+  <script src="js/modal.js" defer></script>
+  <script src="js/validation.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -24,9 +33,6 @@
           <a class="site-nav__link" href="catalog.html">Каталог</a>
         </li>
         <li class="site-nav__item">
-          <a class="site-nav__link site-nav__link--active" href="product.html" aria-current="page">Карточка товара</a>
-        </li>
-        <li class="site-nav__item">
           <a class="site-nav__link" href="order.html">Оформление заказа</a>
         </li>
         <li class="site-nav__item">
@@ -38,99 +44,88 @@
         <li class="site-nav__item">
           <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
         </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="catalog.html?favorites=1">Избранное <span class="badge" data-favorites-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="cart.html">Корзина <span class="badge" data-cart-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Тёмная тема</button>
+        </li>
       </ul>
     </nav>
   </div>
 </header>
 
 <main id="main" class="main">
-    <nav class="breadcrumbs" aria-label="Хлебные крошки">
-  <a class="breadcrumbs__link" href="index.html">Главная</a>
-  <a class="breadcrumbs__link" href="catalog.html">Каталог</a>
-  <span class="breadcrumbs__current" aria-current="page">Телифон</span>
-</nav>
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a class="breadcrumbs__link" href="index.html">Главная</a>
+    <a class="breadcrumbs__link" href="catalog.html">Каталог</a>
+    <span class="breadcrumbs__current" aria-current="page" data-product-crumb>Товар</span>
+  </nav>
 
-  <section class="section product-details">
-  <h1>Телифон</h1>
+  <section class="section product-details" data-product-details>
+    <h1 data-product-title>Загрузка товара…</h1>
 
-  <div class="product-details__layout">
-
-    <div class="product-details__media">
-      <img
-        class="product-details__image"
-        src="images/telifon.webp"
-        alt="Телифон — паукообразное из отряда тропических и субтропических видов"
-        width="500"
-        height="400"
-      >
-    </div>
-
-    <div class="product-details__info">
-
-      <p class="product-details__price">Цена: 6000 руб.</p>
-
-      <p class="product-details__description">
-        Телифон — паукообразное из отряда тропических и субтропических
-        видов. Отличается крупными размерами, длинными тонкими конечностями
-        и хвостовым придатком. Неприхотлив в содержании, но требует
-        стабильной температуры и влажности.
-      </p>
-<div class="table-wrapper">
-      <table class="product-table">
-        <caption>Характеристики товара</caption>
-        <thead>
-          <tr>
-            <th scope="col">Параметр</th>
-            <th scope="col">Значение</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Вид</th>
-            <td>Телифон</td>
-          </tr>
-          <tr>
-            <th scope="row">Отряд</th>
-            <td>Тропические и субтропические паукообразные</td>
-          </tr>
-          <tr>
-            <th scope="row">Наличие</th>
-            <td>В наличии</td>
-          </tr>
-          <tr>
-            <th scope="row">Уровень сложности</th>
-            <td>Для любителей с минимальным опытом</td>
-          </tr>
-          <tr>
-            <th scope="row">Гарантия</th>
-            <td>14 дней</td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-
-      <div class="product-details__actions">
-        <button
-          class="button button--primary"
-          type="button"
-          data-product="Телифон"
+    <div class="product-details__layout">
+      <div class="product-details__media">
+        <img
+          class="product-details__image"
+          data-product-image
+          src="images/placeholder-insect.svg"
+          alt=""
+          width="500"
+          height="400"
         >
-          Заказать
-        </button>
-        <a class="button button--secondary" href="order.html">
-          Оформить заказ
-        </a>
       </div>
 
+      <div class="product-details__info">
+        <p class="product-details__price" data-product-price></p>
+        <p class="product-details__description" data-product-description></p>
+
+        <div class="table-wrapper">
+          <table class="product-table">
+            <caption>Характеристики товара</caption>
+            <thead>
+              <tr>
+                <th scope="col">Параметр</th>
+                <th scope="col">Значение</th>
+              </tr>
+            </thead>
+            <tbody data-product-specs></tbody>
+          </table>
+        </div>
+
+        <div class="product-details__actions">
+          <button class="button button--primary" type="button" data-action="add-to-cart">В корзину</button>
+          <button
+            class="button button--secondary"
+            type="button"
+            data-action="toggle-favorite"
+            data-label-on="♥ В избранном"
+            data-label-off="♡ В избранное"
+            aria-pressed="false"
+          >♡ В избранное</button>
+          <button class="button button--secondary" type="button" data-product="">Быстрая заявка</button>
+          <a class="button button--secondary" href="cart.html">Перейти в корзину</a>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <section class="section product-missing" data-product-missing hidden>
+    <h1>Товар не найден</h1>
+    <p>Такого товара нет в каталоге. Возможно, ссылка устарела.</p>
+    <a class="button button--primary" href="catalog.html">Вернуться в каталог</a>
+  </section>
 
   <!-- Модальное окно заявки -->
   <dialog class="order-dialog" id="order-dialog" aria-labelledby="order-dialog-title">
     <h2 class="order-dialog__title" id="order-dialog-title">Оформление заявки</h2>
+    <p class="order-dialog__product" data-dialog-product hidden></p>
 
-    <form class="order-form" id="order-form" action="#" method="post" novalidate>
+    <form class="order-form" id="order-form" action="#" method="post" novalidate data-validate data-form-kind="request" data-success-text="Заявка отправлена! Мы свяжемся с вами в ближайшее время.">
       <input id="selected-product" name="selected-product" type="hidden">
 
       <div class="order-form__field">
@@ -196,6 +191,8 @@
           Закрыть
         </button>
       </div>
+    
+      <p class="form-message" role="status" aria-live="polite"></p>
     </form>
   </dialog>
 

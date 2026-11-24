@@ -7,9 +7,14 @@
   <title>Каталог товаров — Магазин Жучков</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
-  <script src="js/main.js" defer></script>
+  <script src="js/storage.js"></script>
+  <script src="js/boot.js"></script>
+  <script src="js/utils.js" defer></script>
   <script src="js/data.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/favorites.js" defer></script>
   <script src="js/catalog.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к основному содержимому</a>
@@ -26,9 +31,6 @@
           <a class="site-nav__link site-nav__link--active" href="catalog.html" aria-current="page">Каталог</a>
         </li>
         <li class="site-nav__item">
-          <a class="site-nav__link" href="product.html">Карточка товара</a>
-        </li>
-        <li class="site-nav__item">
           <a class="site-nav__link" href="order.html">Оформление заказа</a>
         </li>
         <li class="site-nav__item">
@@ -40,13 +42,22 @@
         <li class="site-nav__item">
           <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
         </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="catalog.html?favorites=1">Избранное <span class="badge" data-favorites-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="cart.html">Корзина <span class="badge" data-cart-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Тёмная тема</button>
+        </li>
       </ul>
     </nav>
   </div>
 </header>
 
 <main id="main" class="main">
-    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
     <a class="breadcrumbs__link" href="index.html">Главная</a>
     <span class="breadcrumbs__current" aria-current="page">Каталог</span>
   </nav>
@@ -54,142 +65,83 @@
   <section class="section">
     <h1>Каталог товаров</h1>
     <p>
-      На этой странице представлен учебный каталог товаров.
-      В дальнейшем здесь будут добавлены фильтры, сортировка и более
-      подробные карточки.
+      Выбирайте насекомых и паукообразных: ищите по названию, фильтруйте по категории
+      и цене, сортируйте список. Карточки обновляются без перезагрузки страницы.
     </p>
   </section>
 
-  <p class="cart-counter" aria-live="polite">В корзине: 0</p>
-
-<section class="catalog-controls" aria-label="Управление каталогом">
-  <div class="catalog-controls__group">
-    <label for="catalog-search">Поиск товара</label>
-    <input
-      id="catalog-search"
-      class="catalog-controls__input"
-      type="search"
-      placeholder="Введите название товара"
-      autocomplete="off"
-    >
-  </div>
-
-  <div class="catalog-controls__group">
-    <label for="category-filter">Категория</label>
-    <select id="category-filter" class="catalog-controls__select">
-      <option value="all">Все категории</option>
-      <option value="kitchen">Кухня</option>
-      <option value="home">Дом</option>
-      <option value="electronics">Электроника</option>
-    </select>
-  </div>
-
-  <div class="catalog-controls__group">
-    <label for="sort-select">Сортировка</label>
-    <select id="sort-select" class="catalog-controls__select">
-      <option value="default">По умолчанию</option>
-      <option value="price-asc">Сначала дешевле</option>
-      <option value="price-desc">Сначала дороже</option>
-      <option value="title-asc">По названию А-Я</option>
-    </select>
-  </div>
-</section>
-
-<p class="catalog-count" aria-live="polite"></p>
-<p class="catalog-empty" hidden>По выбранным условиям товары не найдены.</p>
-
-<div class="products-grid" data-products-container></div>
-
   <section class="catalog-layout">
-    <aside class="catalog-filters">
-      <h2>Фильтры</h2>
+    <aside class="catalog-filters" aria-labelledby="catalog-filters-title">
+      <h2 id="catalog-filters-title">Поиск и фильтры</h2>
 
-      <form class="filters-form" action="#" method="get">
+      <form class="filters-form" id="catalog-form" action="#" autocomplete="off" novalidate>
+        <div>
+          <label for="catalog-search">Поиск по названию</label>
+          <input id="catalog-search" type="search" placeholder="Например, жук" autocomplete="off">
+        </div>
+
+        <div>
+          <label for="category-filter">Категория</label>
+          <select id="category-filter">
+            <option value="all">Все категории</option>
+            <option value="beetles">Жуки</option>
+            <option value="arachnids">Паукообразные</option>
+            <option value="winged_insects">Крылатые насекомые</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="sort-select">Сортировка</label>
+          <select id="sort-select">
+            <option value="default">По умолчанию</option>
+            <option value="price-asc">Сначала дешевле</option>
+            <option value="price-desc">Сначала дороже</option>
+            <option value="title-asc">По названию А–Я</option>
+            <option value="title-desc">По названию Я–А</option>
+          </select>
+        </div>
+
         <fieldset>
-          <legend>Категория</legend>
-
-          <label>
-            <input type="checkbox" name="category" value="all">
-            Все товары
-          </label>
-
-          <label>
-            <input type="checkbox" name="category" value="popular">
-            Популярные
-          </label>
-
-          <label>
-            <input type="checkbox" name="category" value="new">
-            Новинки
-          </label>
+          <legend>Цена, руб.</legend>
+          <div class="price-row">
+            <div>
+              <label for="price-min">От</label>
+              <input id="price-min" type="number" min="0" inputmode="numeric" placeholder="0">
+            </div>
+            <div>
+              <label for="price-max">До</label>
+              <input id="price-max" type="number" min="0" inputmode="numeric" placeholder="8000">
+            </div>
+          </div>
+          <small class="field-error" id="price-error" role="alert" hidden></small>
         </fieldset>
 
-        <fieldset>
-          <legend>Цена</legend>
+        <label class="checkbox-label" for="only-available">
+          <input id="only-available" type="checkbox">
+          Только в наличии
+        </label>
 
-          <label for="price-from">От</label>
-          <input id="price-from" name="price-from" type="number" min="0" placeholder="0">
+        <label class="checkbox-label" for="only-favorites">
+          <input id="only-favorites" type="checkbox">
+          <span>Только избранное&nbsp;(<span data-favorites-count>0</span>)</span>
+        </label>
 
-          <label for="price-to">До</label>
-          <input id="price-to" name="price-to" type="number" min="0" placeholder="5000">
-        </fieldset>
-
-        <button class="button button--primary" type="submit">Применить</button>
+        <button class="button button--secondary" type="reset">Сбросить фильтры</button>
       </form>
     </aside>
 
-    <section class="catalog-products">
-      <h2>Список товаров</h2>
+    <section class="catalog-products" aria-labelledby="catalog-results-title">
+      <h2 id="catalog-results-title" tabindex="-1">Список товаров</h2>
+      <p class="catalog-count" role="status" aria-live="polite"></p>
 
-      <div class="products-grid">
-  <article class="product-card product-card--featured">
-    <span class="product-card__badge product-card__badge--new">Новинка</span>
-    <img
-      class="product-card__image"
-      src="images/telifon.webp"
-      alt="Телифон"
-      width="300"
-      height="200"
-      loading="lazy"
-    >
-    <h3 class="product-card__title">Телифон</h3>
-    <p class="product-card__description">Относится к отряду тропических и субтропических паукообразных.</p>
-    <p class="product-card__price">Цена: 6000 руб.</p>
-    <a class="button button--primary product-card__button" href="product.html">Подробнее</a>
-  </article>
+      <div class="catalog-empty" hidden>
+        <p>По выбранным условиям товары не найдены. Измените запрос или сбросьте фильтры.</p>
+        <button class="button button--primary" type="button" data-action="reset-filters">Показать все товары</button>
+      </div>
 
-  <article class="product-card product-card--featured">
-    <span class="product-card__badge">Хит</span>
-    <img
-      class="product-card__image"
-      src="images/kozyavka.webp"
-      alt="Козявка"
-      width="300"
-      height="200"
-      loading="lazy"
-    >
-    <h3 class="product-card__title">Козявка</h3>
-    <p class="product-card__description">Относится к подсемейству жуков из семейства листоедов.</p>
-    <p class="product-card__price">Цена: 2000 руб.</p>
-    <a class="button button--primary product-card__button" href="product.html">Подробнее</a>
-  </article>
+      <div class="products-grid" data-products-container></div>
 
-  <article class="product-card product-card--featured">
-    <span class="product-card__badge">Скидка</span>
-    <img
-      class="product-card__image"
-      src="images/maika.webp"
-      alt="Майка"
-      width="300"
-      height="200"
-      loading="lazy"
-    >
-    <h3 class="product-card__title">Майка</h3>
-    <p class="product-card__description">Относится к роду нарывников из подсемейства Meloinae.</p>
-    <p class="product-card__price">Цена: 1000 руб.</p>
-    <a class="button button--primary product-card__button" href="product.html">Подробнее</a>
-  </article>
-</div>
+      <nav class="pagination" aria-label="Страницы каталога" data-pagination hidden></nav>
     </section>
   </section>
 </main>

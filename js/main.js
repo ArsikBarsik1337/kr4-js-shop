@@ -1,102 +1,112 @@
-console.log('Файл main.js подключён');
-console.table(products);
+/* =========================================================
+   main.js — общая инициализация, подключается на всех страницах
+   последним. Содержит то, что нужно каждой странице:
+   меню, кнопку «Наверх» и название карты.
+   Каждая функция сама проверяет, есть ли нужные элементы
+   на странице, поэтому ошибок в консоли нет.
+   ========================================================= */
 
-function getProductTitles(products) {
-  return products.map((product) => product.title);
-}
+/* ---------- Навигация ---------- */
 
-function getAvailableProducts(products) {
-  return products.filter((product) => product.isAvailable);
-}
+function initThemeToggle() {
+  const button = document.querySelector('[data-theme-toggle]');
+  if (!button) return;
 
-function searchProducts(products, query) {
-  const normalizedQuery = query.trim().toLowerCase();
-
-  if (normalizedQuery === '') {
-    return products;
-  }
-
-  return products.filter((product) => {
-    return product.title.toLowerCase().includes(normalizedQuery);
+  applyTheme();
+  button.addEventListener('click', () => {
+    themePreference = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    applyTheme();
+    saveToStorage(STORAGE_KEYS.theme, themePreference);
+  });
+  systemTheme.addEventListener('change', applyTheme);
+  window.addEventListener('storage', (event) => {
+    if (event.key === STORAGE_KEYS.theme || event.key === null) {
+      themePreference = readThemePreference();
+      applyTheme();
+    }
   });
 }
 
-function filterProductsByCategory(products, category) {
-  if (category === 'all') {
-    return products;
+function initNavigation() {
+  const navToggle = document.querySelector('.nav-toggle');
+  const siteNav = document.querySelector('#site-nav');
+
+  if (!navToggle || !siteNav) {
+    return;
   }
 
-  return products.filter((product) => {
-    return product.category === category;
+  function setNavOpen(isOpen) {
+    siteNav.classList.toggle('is-open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  }
+
+  navToggle.addEventListener('click', () => {
+    setNavOpen(!siteNav.classList.contains('is-open'));
+  });
+
+  siteNav.addEventListener('click', (event) => {
+    if (event.target.closest('a')) {
+      setNavOpen(false);
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && siteNav.classList.contains('is-open')) {
+      setNavOpen(false);
+      navToggle.focus();
+    }
   });
 }
 
-function sortProductsByPrice(products, direction = 'asc') {
-  const productsCopy = [...products];
+/* ---------- Кнопка «Наверх» ---------- */
 
-  if (direction === 'desc') {
-    return productsCopy.sort((a, b) => b.price - a.price);
+function initScrollTopButton() {
+  const buttonUp = document.querySelector('.button-up');
+
+  if (!buttonUp) {
+    return;
   }
 
-  return productsCopy.sort((a, b) => a.price - b.price);
+  buttonUp.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 
-function findProductById(products, id) {
-  return products.find((product) => product.id === id);
-}
+/* ---------- Карта на странице контактов ---------- */
 
-function calculateTotalPrice(products) {
-  return products.reduce((sum, product) => {
-    return sum + product.price;
-  }, 0);
-}
+// Карта подключается внешним скриптом позже, поэтому ждём появления iframe.
+function initMapTitle() {
+  const mapWrapper = document.querySelector('.map-wrapper');
 
-function countAvailableProducts(products) {
-  return products.filter((product) => product.isAvailable).length;
-}
-
-function calculateAveragePrice(products) {
-  if (products.length === 0) {
-    return 0;
+  if (!mapWrapper) {
+    return;
   }
 
-  const totalPrice = calculateTotalPrice(products);
-  return Math.round(totalPrice / products.length);
+  function setMapTitle() {
+    const frame = mapWrapper.querySelector('iframe');
+
+    if (frame && !frame.title) {
+      frame.title = 'Карта: расположение магазина';
+    }
+
+    return Boolean(frame);
+  }
+
+  if (!setMapTitle()) {
+    const observer = new MutationObserver(() => {
+      if (setMapTitle()) {
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(mapWrapper, { childList: true });
+  }
 }
 
-function getPreparedProducts(products, query, category, sortDirection) {
-  let result = [...products];
-
-  result = searchProducts(result, query);
-  result = filterProductsByCategory(result, category);
-  result = sortProductsByPrice(result, sortDirection);
-
-  return result;
-}
-
-console.log(getProductTitles(products));
-console.table(getAvailableProducts(products));
-console.table(searchProducts(products, 'ко'));
-console.table(filterProductsByCategory(products, 'kitchen'));
-console.table(sortProductsByPrice(products, 'asc'));
-console.log(findProductById(products, 3));
-console.log(calculateTotalPrice(products));
-console.log(countAvailableProducts(products));
-console.log(calculateAveragePrice(products));
-console.table(getPreparedProducts(products, 'ко', 'kitchen', 'asc'));
-
-const messageElement = document.querySelector('.js-message');
-const productOutputElement = document.querySelector('.product-output');
-
-if (messageElement) {
-  messageElement.textContent = 'Массив товаров и функции обработки данных подключены.';
-}
-
-if (productOutputElement) {
-  productOutputElement.textContent = [
-    `Всего товаров: ${products.length}`,
-    `Товаров в наличии: ${countAvailableProducts(products)}`,
-    `Средняя цена: ${calculateAveragePrice(products)} руб.`,
-    `Результатов поиска "ко": ${searchProducts(products, 'ко').length}`
-  ].join('\n');
-}
+document.addEventListener('DOMContentLoaded', () => {
+  initThemeToggle();
+  initNavigation();
+  initScrollTopButton();
+  initMapTitle();
+});

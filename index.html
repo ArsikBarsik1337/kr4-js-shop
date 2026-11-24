@@ -7,10 +7,16 @@
   <title>Магазин Жучков</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
-  <script src="js/modal.js" defer></script>
-  <script src="js/data.js" defer></script>
-<script src="js/main.js" defer></script>
 
+  <script src="js/storage.js"></script>
+  <script src="js/boot.js"></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/favorites.js" defer></script>
+  <script src="js/modal.js" defer></script>
+  <script src="js/validation.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к основному содержимому</a>
@@ -27,9 +33,6 @@
           <a class="site-nav__link" href="catalog.html">Каталог</a>
         </li>
         <li class="site-nav__item">
-          <a class="site-nav__link" href="product.html">Карточка товара</a>
-        </li>
-        <li class="site-nav__item">
           <a class="site-nav__link" href="order.html">Оформление заказа</a>
         </li>
         <li class="site-nav__item">
@@ -41,15 +44,19 @@
         <li class="site-nav__item">
           <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
         </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="catalog.html?favorites=1">Избранное <span class="badge" data-favorites-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="cart.html">Корзина <span class="badge" data-cart-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Тёмная тема</button>
+        </li>
       </ul>
     </nav>
   </div>
 </header>
-<section class="section js-check" aria-labelledby="js-check-title">
-  <h2 id="js-check-title">Проверка JavaScript</h2>
-  <p class="js-message">JavaScript пока не выполнился.</p>
-  <pre class="product-output"></pre>
-</section>
 
 <main id="main" class="main">
     <section class="hero">
@@ -155,7 +162,7 @@
       >
       <h3 class="product-card__title">Майка</h3>
       <p class="product-card__description">Относится к роду нарывников из подсемейства Meloinae.</p>
-      <p class="product-card__price">Цена: 1000 руб.</p>
+      <p class="product-card__price">Цена: 900 руб. <s>1000 руб.</s></p>
       <button
         class="button product-card__button"
         type="button"
@@ -171,15 +178,16 @@
     <h2>Информация для покупателей</h2>
     <p>
       Вы можете приобрести насекомых.
-      Можете оставить заявку на констультацию
+      Можете оставить заявку на консультацию
       у эксперта в области членистоногих.
     </p>
   </aside>
 
 <dialog class="order-dialog" id="order-dialog" aria-labelledby="order-dialog-title">
   <h2 class="order-dialog__title" id="order-dialog-title">Оформление заявки</h2>
+  <p class="order-dialog__product" data-dialog-product hidden></p>
 
-  <form class="order-form" id="order-form" action="#" method="post" novalidate>
+  <form class="order-form" id="order-form" action="#" method="post" novalidate data-validate data-form-kind="request" data-success-text="Заявка отправлена! Мы свяжемся с вами в ближайшее время.">
     <input id="selected-product" name="selected-product" type="hidden">
 
     <div class="order-form__field">
@@ -277,10 +285,10 @@
         Закрыть
       </button>
     </div>
+
+    <p class="form-message" role="status" aria-live="polite"></p>
   </form>
 </dialog>
-
-<p class="success-message" id="success-message" hidden>Форма успешно отправлена!</p>
 
 </main>
 
