@@ -7,6 +7,13 @@
   <title>Контакты — Магазин Жучков</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/storage.js"></script>
+  <script src="js/boot.js"></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/favorites.js" defer></script>
+  <script src="js/validation.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -24,9 +31,6 @@
           <a class="site-nav__link" href="catalog.html">Каталог</a>
         </li>
         <li class="site-nav__item">
-          <a class="site-nav__link" href="product.html">Карточка товара</a>
-        </li>
-        <li class="site-nav__item">
           <a class="site-nav__link" href="order.html">Оформление заказа</a>
         </li>
         <li class="site-nav__item">
@@ -37,6 +41,15 @@
         </li>
         <li class="site-nav__item">
           <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="catalog.html?favorites=1">Избранное <span class="badge" data-favorites-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="cart.html">Корзина <span class="badge" data-cart-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Тёмная тема</button>
         </li>
       </ul>
     </nav>
@@ -77,7 +90,7 @@
   <h2>Обратная связь</h2>
   <p>Оставьте сообщение, и мы ответим в течение рабочего дня.</p>
 
-  <form class="order-form order-form--page" id="contact-form" action="#" method="post" novalidate>
+  <form class="order-form order-form--page" id="contact-form" action="#" method="post" novalidate data-validate data-form-kind="contact" data-success-text="Сообщение отправлено! Мы ответим в течение рабочего дня.">
     <div class="order-form__field">
       <label class="order-form__label" for="contact-name">Имя</label>
       <input class="order-form__input" id="contact-name" name="name"
@@ -91,16 +104,14 @@
     <div class="order-form__field order-form__field--wide">
       <label class="order-form__label" for="contact-message">Сообщение</label>
       <textarea class="order-form__textarea" id="contact-message" name="message"
-                rows="5" required></textarea>
+                rows="5" maxlength="500" required></textarea>
     </div>
     <div class="order-form__actions">
       <button class="button button--primary" type="submit">Отправить</button>
+      <button class="button button--secondary" type="reset">Очистить</button>
     </div>
+    <p class="form-message" role="status" aria-live="polite"></p>
   </form>
-
-  <p class="success-message" id="contact-success" role="status" hidden>
-    Сообщение отправлено!
-  </p>
 
   <div class="product-details__actions">
     <a class="button button--secondary" href="order.html">Перейти к форме заказа</a>

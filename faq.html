@@ -7,6 +7,12 @@
   <title>FAQ — Интернет-магазин насекомых</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/storage.js"></script>
+  <script src="js/boot.js"></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/favorites.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -24,9 +30,6 @@
           <a class="site-nav__link" href="catalog.html">Каталог</a>
         </li>
         <li class="site-nav__item">
-          <a class="site-nav__link" href="product.html">Карточка товара</a>
-        </li>
-        <li class="site-nav__item">
           <a class="site-nav__link" href="order.html">Оформление заказа</a>
         </li>
         <li class="site-nav__item">
@@ -37,6 +40,15 @@
         </li>
         <li class="site-nav__item">
           <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="catalog.html?favorites=1">Избранное <span class="badge" data-favorites-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="cart.html">Корзина <span class="badge" data-cart-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Тёмная тема</button>
         </li>
       </ul>
     </nav>

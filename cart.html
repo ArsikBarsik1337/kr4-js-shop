@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Корзина учебного интернет-магазина.">
+  <title>Корзина — Магазин Жучков</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/storage.js"></script>
+  <script src="js/boot.js"></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/favorites.js" defer></script>
+  <script src="js/cart-view.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__logo" href="index.html">Магазин Жучков</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Меню</button>
+    <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+      <ul class="site-nav__list">
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="index.html">Главная</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="catalog.html">Каталог</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="order.html">Оформление заказа</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="faq.html">FAQ</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="contacts.html">Контакты</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="catalog.html?favorites=1">Избранное <span class="badge" data-favorites-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link site-nav__link--active" aria-current="page" href="cart.html">Корзина <span class="badge" data-cart-count>0</span></a>
+        </li>
+        <li class="site-nav__item">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Тёмная тема</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="main">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a class="breadcrumbs__link" href="index.html">Главная</a>
+    <span class="breadcrumbs__current" aria-current="page">Корзина</span>
+  </nav>
+
+  <section class="section">
+    <h1 data-cart-title tabindex="-1">Корзина</h1>
+    <p data-cart-summary-text role="status" aria-live="polite"></p>
+
+    <div class="cart-empty" data-cart-empty hidden>
+      <p>Здесь пока пусто. Загляните в каталог и выберите что-нибудь интересное.</p>
+      <a class="button button--primary" href="catalog.html">Перейти в каталог</a>
+    </div>
+
+    <div class="cart-layout" data-cart-content hidden>
+      <ul class="cart-list" data-cart-list aria-label="Товары в корзине"></ul>
+
+      <aside class="cart-summary" aria-labelledby="cart-summary-title">
+        <h2 id="cart-summary-title">Итого</h2>
+        <div data-cart-totals></div>
+
+        <form class="promo-form" data-promo-form action="#" novalidate>
+          <label for="promo-code">Промокод</label>
+          <div class="promo-form__row">
+            <input id="promo-code" name="promo" type="text" autocomplete="off" maxlength="20" placeholder="BUGS10">
+            <button class="button button--secondary" type="submit">Применить</button>
+          </div>
+          <p class="form-message" data-promo-message role="status" aria-live="polite"></p>
+          <button class="button button--secondary" type="button" data-action="remove-promo" hidden>Убрать промокод</button>
+          <small>Для проверки: <b>BUGS10</b> (−10%) и <b>WELCOME500</b> (−500 руб. от 3 000 руб.).</small>
+        </form>
+
+        <div class="cart-summary__actions">
+          <a class="button button--primary" href="order.html">Оформить заказ</a>
+          <button class="button button--secondary" type="button" data-action="clear-cart">Очистить корзину</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 Учебный проект. Все права защищены.</p>
+  <p>Дисциплина: Фронтенд и бэкенд разработка</p>
+</footer>
+
+<a href="#" class="button-up" aria-label="Вернуться наверх">↑</a>
+</body>
+</html>
